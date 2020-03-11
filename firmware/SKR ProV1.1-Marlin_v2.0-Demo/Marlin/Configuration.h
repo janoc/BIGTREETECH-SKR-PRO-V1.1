@@ -771,15 +771,15 @@
 // Old M8 fine pitch rods
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 200*16/1, E_STEPS_PER_MM }
 
-// T8 2mm pitch leadscrews
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 200*16/2, E_STEPS_PER_MM }
+// T8 2mm pitch leadscrews, 8mm lead
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 200*16/8, E_STEPS_PER_MM }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 400, 400, 4, 30 }
+#define DEFAULT_MAX_FEEDRATE          { 400, 400, 10, 30 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
