@@ -180,6 +180,9 @@ typedef struct { int16_t value, celsius; } temp_entry_t;
 #if ANY_THERMISTOR_IS(1047) // Pt1000 with 4k7 pullup
   #include "thermistor_1047.h"
 #endif
+#if ANY_THERMISTOR_IS(900) // beta25 = 4540, R25 = 100k, Pull-up = 4k7, Epcos B57861S 104F 40 100K on Mendel90 bed, max temp 115
+  #include "thermistor_900.h"
+#endif
 #if ANY_THERMISTOR_IS(998) // User-defined table 1
   #include "thermistor_998.h"
 #endif
