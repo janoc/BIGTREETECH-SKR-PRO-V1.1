@@ -524,8 +524,15 @@ float Probe::run_z_probe(const bool sanity_check/*=true*/) {
   #if TOTAL_PROBING == 2
 
     // Do a first probe at the fast speed
-    if (try_to_probe(PSTR("FAST"), z_probe_low_point, MMM_TO_MMS(Z_PROBE_SPEED_FAST),
-                     sanity_check, Z_CLEARANCE_BETWEEN_PROBES) ) return NAN;
+    if (probe_down_to_z(z_probe_low_point, MMM_TO_MMS(Z_PROBE_SPEED_FAST))         // No probe trigger?
+      || (sanity_check && current_position.z > -offset.z + Z_CLEARANCE_BETWEEN_PROBES)  // Probe triggered too high?
+    ) {
+      if (DEBUGGING(LEVELING)) {
+        DEBUG_ECHOLNPGM("FAST Probe fail!");
+        DEBUG_POS("<<< run_z_probe", current_position);
+      }
+      return NAN;
+    }
 
     const float first_probe_z = current_position.z;
 
@@ -562,8 +569,15 @@ float Probe::run_z_probe(const bool sanity_check/*=true*/) {
   #endif
     {
       // Probe downward slowly to find the bed
-      if (try_to_probe(PSTR("SLOW"), z_probe_low_point, MMM_TO_MMS(Z_PROBE_SPEED_SLOW),
-                       sanity_check, Z_CLEARANCE_MULTI_PROBE) ) return NAN;
+      if (probe_down_to_z(z_probe_low_point, MMM_TO_MMS(Z_PROBE_SPEED_SLOW))      // No probe trigger?
+        || (sanity_check && current_position.z > -offset.z + Z_CLEARANCE_MULTI_PROBE)  // Probe triggered too high?
+      ) {
+        if (DEBUGGING(LEVELING)) {
+          DEBUG_ECHOLNPGM("SLOW Probe fail!");
+          DEBUG_POS("<<< run_z_probe", current_position);
+        }
+        return NAN;
+      }
 
       TERN_(MEASURE_BACKLASH_WHEN_PROBING, backlash.measure_with_probe());
 
