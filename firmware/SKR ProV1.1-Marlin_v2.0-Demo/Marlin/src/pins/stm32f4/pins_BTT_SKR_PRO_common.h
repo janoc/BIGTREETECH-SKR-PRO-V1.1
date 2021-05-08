@@ -218,7 +218,9 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                          PF7//PF4   // T1 <-> E0
+//#define TEMP_0_PIN                          PF7//PF4   // T1 <-> E0
+// JC - no idea why did they redefine the thermistor to be on PF7 when it is on PF4. Different board rev?
+#define TEMP_0_PIN                          PF4   // T1 <-> E0
 #define TEMP_1_PIN                          PF5   // T2 <-> E1
 #define TEMP_2_PIN                          PF6   // T3 <-> E2
 #define TEMP_BED_PIN                        PF3   // T0 <-> Bed
